@@ -37,7 +37,7 @@ function showPosition(position) {
         locationTrackLayers.removeLayer(circleMarker);
     }
 
-    circleMarker = L.circle([lat, lon], 10, circleMarkerOptions);
+    circleMarker = L.circle([lat, lon], 5, circleMarkerOptions);
     locationTrackLayers.addLayer(circleMarker);
 
     map.panTo(new L.LatLng(lat, lon));
