@@ -161,7 +161,7 @@ function navigate(dest) {
     if (substitutes.hasOwnProperty(dest)) {
         dest = substitutes[dest];
     }
-    path = findPath(1, dest);
+    path = findPath(30, dest);
 
     if (path.length < 2) {
         alert("No route found for the selected destination");
