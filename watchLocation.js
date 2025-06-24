@@ -49,10 +49,10 @@ function showPosition(position) {
     circleMarker = L.circle([lat, lon], 3, circleMarkerOptions);
     locationTrackLayers.addLayer(circleMarker);
 
-    var not_interacted_duration = interactionEnded - interactionStarted;
+    var not_interacted_duration = Date.now() - interactionEnded;
 
 
-    if (not_interacted_duration > 5000) {
+    if ((interactionEnded >= interactionStarted) && (not_interacted_duration > 5000)) {
         map.panTo(new L.LatLng(lat, lon));
     }
 }
