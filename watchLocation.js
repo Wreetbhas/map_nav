@@ -1,8 +1,8 @@
-﻿var watchId;
+var watchId;
 var locationTrackLayers;
 var circleMarker;
-var userInteracting = false;
-
+var interactionStarted = -5001;
+var interactionEnded = 0;
 
 
 var circleMarkerOptions = {
@@ -12,13 +12,10 @@ var circleMarkerOptions = {
 }
 
 map.on('mousedown touchstart', function () {
-    userInteracting = true;
+    interactionStarted = Date.now();
 });
 map.on('mouseup touchend', function () {
-    // Delay resetting the flag to allow for pan inertia
-    setTimeout(function () {
-        userInteracting = false;
-    }, 5000);
+    interactionEnded = Date.now();
 });
 
 
@@ -52,7 +49,10 @@ function showPosition(position) {
     circleMarker = L.circle([lat, lon], 3, circleMarkerOptions);
     locationTrackLayers.addLayer(circleMarker);
 
-    if (!userInteracting) {
+    var not_interacted_duration = interactionEnded - interactionStarted;
+
+
+    if (not_interacted_duration > 5000) {
         map.panTo(new L.LatLng(lat, lon));
     }
 }
