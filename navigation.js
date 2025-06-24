@@ -27,47 +27,21 @@ var iconOptions = {
     iconSize: [30, 30],
     iconAnchor: [15, 25]
 }
-var startOptions = {
-    iconUrl: 'start_marker.png',
-    iconSize: [20, 20],
-    iconAnchor: [10, 20]
-}
-var finishOptions = {
-    iconUrl: 'finish_marker.png',
-    iconSize: [20, 20],
-    iconAnchor: [10, 20]
-}
 var testIconOptions = {
     iconUrl: 'node_marker.png',
     iconSize: [30, 30],
     iconAnchor: [15, 25]
 }
-// Creating a marker icon
-var markerIcon = L.icon(iconOptions);
-var startIcon = L.icon(startOptions);
-var finishIcon = L.icon(finishOptions);
-var testIcon = L.icon(testIconOptions);
 
 function addMarkers() {
     Object.entries(nodes).forEach(([nodeid, node]) => {
         var nodename = node.nodename;
         var lat = node.lat;
         var lon = node.lon;
-        var iconNeeded;
-
-        if (nodeid == 1) {
-            iconNeeded = startIcon;
-        }
-        else if (nodeid == currentDestination) {
-            iconNeeded = finishIcon;
-        }
-        else {
-            iconNeeded = markerIcon;
-        }
 
         if (nodename != "") {
             // Creating a Marker
-            var marker = L.marker([lat, lon], { icon: iconNeeded });
+            var marker = L.marker([lat, lon], { icon: L.icon(iconOptions) });
 
             marker.bindTooltip(nodename);
 
@@ -79,7 +53,7 @@ function addMarkers() {
             marker.addTo(map);
         }
         //else {
-        //    var marker = L.marker([lat, lon], { icon: testIcon });
+        //    var marker = L.marker([lat, lon], { icon: L.icon(testIconOptions) });
 
         //    marker.bindTooltip(nodeid);
 
@@ -93,7 +67,6 @@ function addMarkers() {
         
     });      
 }
-
 function addEdges() {
     Object.entries(edges).forEach(([edgeid, edge]) => {
         var startnodeid = edge.startnodeid;
