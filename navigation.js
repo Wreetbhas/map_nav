@@ -41,7 +41,8 @@ function addMarkers() {
 
         if (nodename != "") {
             // Creating a Marker
-            var marker = L.marker([lat, lon], { icon: L.icon(iconOptions) });
+            //var marker = L.marker([lat, lon], { icon: L.icon(iconOptions) });
+            var marker = L.marker([lat, lon]);
 
             marker.bindTooltip(nodename);
 
