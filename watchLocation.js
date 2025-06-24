@@ -1,6 +1,8 @@
 ﻿var watchId;
 var locationTrackLayers;
 var circleMarker;
+var userInteracting = false;
+
 
 
 var circleMarkerOptions = {
@@ -8,6 +10,16 @@ var circleMarkerOptions = {
     fillColor: '#0008ff',
     fillOpacity: 10
 }
+
+map.on('mousedown touchstart', function () {
+    userInteracting = true;
+});
+map.on('mouseup touchend', function () {
+    // Delay resetting the flag to allow for pan inertia
+    setTimeout(function () {
+        userInteracting = false;
+    }, 5000);
+});
 
 
 function watchLocation() {
@@ -40,7 +52,9 @@ function showPosition(position) {
     circleMarker = L.circle([lat, lon], 3, circleMarkerOptions);
     locationTrackLayers.addLayer(circleMarker);
 
-    map.panTo(new L.LatLng(lat, lon));
+    if (!userInteracting) {
+        map.panTo(new L.LatLng(lat, lon));
+    }
 }
 
 function showError(error) {
