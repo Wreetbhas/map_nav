@@ -34,12 +34,12 @@ function setupMapInteractionListeners() {
     // Listen for various user interaction events
     map.on('dragstart', onUserInteractionStart);
     map.on('zoomstart', onUserInteractionStart);
-    map.on('movestart', onUserInteractionStart);
+    //map.on('movestart', onUserInteractionStart);
 
     // Listen for interaction end events
     map.on('dragend', onUserInteractionEnd);
     map.on('zoomend', onUserInteractionEnd);
-    map.on('moveend', onUserInteractionEnd);
+    //map.on('moveend', onUserInteractionEnd);
 
     // Also listen for touch events on mobile
     map.on('touchstart', onUserInteractionStart);
@@ -65,7 +65,7 @@ function onUserInteractionEnd() {
         if (circleMarker) {
             var latlng = circleMarker.getLatLng();
             map.flyTo([latlng.lat, latlng.lng], 18, {
-                animate: false,
+                animate: true,
                 duration: 2 // duration in seconds
             });
         }
@@ -90,7 +90,7 @@ function showPosition(position) {
         if (firstTime) {
             firstTime = false;
             map.flyTo([lat, lon], 18, {
-                animate: false,
+                animate: true,
                 duration: 2 // duration in seconds
             });
         }
