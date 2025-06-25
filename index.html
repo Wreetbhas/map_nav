@@ -23,18 +23,22 @@
 
     <script>
         window.onload = function () {
-    currentDestination = 11;
-
-        initializeGraph(nodes, edges);
-        addAreas();
-        addMarkers();
-        addEdges();
-        navigate(currentDestination);
-        watchLocation();
-
-
-    //checkAllNavigations();
-};
+            currentDestination = 11;
+    
+            initializeGraph(nodes, edges);
+            addAreas();
+            addMarkers();
+            addEdges();
+            navigate(currentDestination);
+            //watchLocation();
+    
+            setTimeout(() => {
+                watchLocation();
+            }, 2000);
+    
+    
+            //checkAllNavigations();
+        };
     </script>
 
 </body>
