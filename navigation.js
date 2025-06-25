@@ -2,7 +2,6 @@
 var currentPath;
 var layerGroup;
 var currentDestination;
-var watchLocationTimeout;
 
 // Creating map options
 var mapOptions = {
@@ -34,54 +33,21 @@ var testIconOptions = {
     iconAnchor: [15, 25]
 }
 
-function submitPassword(nodeid, event) {
-    // Prevent any default behavior that might cause page reload
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
-
-    var enteredPwd = document.getElementById('pwdInput').value;
-    if (enteredPwd === "1234") {
-        navigate(nodeid);
-        // Close the popup after successful navigation
-        map.closePopup();
-
-        watchLocationTimeout = setTimeout(() => {
-            watchLocation();
-        }, 2000);
-        isUserInteracting = false;
-    } else {
-        alert("Wrong password.");
-    }
-    return false; // Prevent any form submission
-}
-
 function addMarkers() {
     Object.entries(nodes).forEach(([nodeid, node]) => {
         var nodename = node.nodename;
         var lat = node.lat;
         var lon = node.lon;
-        var popupContent = `
-            <div>
-                <input type="password" id="pwdInput" placeholder="Password" /><br/><br/>
-                <button type="button" onclick="submitPassword(${nodeid}, event); return false;">Submit</button>
-            </div>
-        `;
 
         if (nodename != "") {
             // Creating a Marker
             var marker = L.marker([lat, lon], { icon: L.icon(iconOptions) });
+            //var marker = L.marker([lat, lon]);
 
             marker.bindTooltip(nodename);
 
-            marker.on('click', function () {      
-                if (navigator.geolocation && watchId && interactionTimeout && watchLocationTimeout) {
-                    clearTimeout(interactionTimeout);
-                    clearTimeout(watchLocationTimeout);
-                    navigator.geolocation.clearWatch(watchId);
-                }
-                marker.bindPopup(popupContent).openPopup();
+            marker.on('click', function () {
+                navigate(nodeid);
             });
 
             // Adding marker to the map
@@ -102,7 +68,6 @@ function addMarkers() {
         
     });      
 }
-
 function addEdges() {
     Object.entries(edges).forEach(([edgeid, edge]) => {
         var startnodeid = edge.startnodeid;

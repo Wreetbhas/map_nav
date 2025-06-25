@@ -23,14 +23,22 @@
 
     <script>
         window.onload = function () {
-            watchLocationTimeout = setTimeout(() => {
-                watchLocation();
-            }, 5000);
-            
+            currentDestination = 704;
+            //currentDestination = 11;
+    
             initializeGraph(nodes, edges);
             addAreas();
             addMarkers();
             addEdges();
+            navigate(currentDestination);
+            //watchLocation();
+    
+            setTimeout(() => {
+                watchLocation();
+            }, 2000);
+    
+    
+            //checkAllNavigations();
         };
     </script>
 
