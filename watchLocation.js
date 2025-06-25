@@ -31,19 +31,19 @@ function watchLocation() {
 }
 
 function setupMapInteractionListeners() {
-    // Listen for various user interaction events
     map.on('dragstart', onUserInteractionStart);
     map.on('zoomstart', onUserInteractionStart);
     //map.on('movestart', onUserInteractionStart);
-
-    // Listen for interaction end events
+    
     map.on('dragend', onUserInteractionEnd);
     map.on('zoomend', onUserInteractionEnd);
     //map.on('moveend', onUserInteractionEnd);
-
-    // Also listen for touch events on mobile
+    
     map.on('touchstart', onUserInteractionStart);
     map.on('touchend', onUserInteractionEnd);
+    
+    map.on('mousedown', onUserInteractionStart);
+    map.on('mouseup', onUserInteractionEnd);
 }
 
 function onUserInteractionStart() {
