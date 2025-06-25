@@ -1,6 +1,7 @@
 var watchId;
 var locationTrackLayers;
 var circleMarker;
+var firstTime = true;
 var isUserInteracting = false;
 var interactionTimeout;
 var circleMarkerOptions = {
@@ -60,15 +61,15 @@ function onUserInteractionEnd() {
         clearTimeout(interactionTimeout);
     }
 
-    interactionTimeout = setTimeout(() => {
-        isUserInteracting = false;
+    interactionTimeout = setTimeout(() => {        
         if (circleMarker) {
             var latlng = circleMarker.getLatLng();
             map.flyTo([latlng.lat, latlng.lng], 18, {
                 animate: true,
-                duration: 1 // duration in seconds
+                duration: 2 // duration in seconds
             });
         }
+        isUserInteracting = false;
     }, 5000); // Wait 1 second after last interaction before allowing auto-pan
 }
 
@@ -86,8 +87,17 @@ function showPosition(position) {
 
     // Only pan the map if user is not currently interacting
     if (!isUserInteracting) {
-        map.panTo(new L.LatLng(lat, lon));
-        //map.setView(new L.LatLng(lat,lon), 18);
+        if (firstTime) {
+            firstTime = false;
+            map.flyTo([lat, lon], 18, {
+                animate: false,
+                duration: 2 // duration in seconds
+            });
+        }
+        else {
+            map.panTo(new L.LatLng(lat, lon));
+            //map.setView(new L.LatLng(lat, lon), 18);
+        }
     }
 }
 
