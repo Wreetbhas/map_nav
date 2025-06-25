@@ -65,7 +65,7 @@ function onUserInteractionEnd() {
         if (circleMarker) {
             var latlng = circleMarker.getLatLng();
             map.flyTo([latlng.lat, latlng.lng], 18, {
-                animate: true,
+                animate: false,
                 duration: 2 // duration in seconds
             });
         }
