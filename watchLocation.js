@@ -62,6 +62,11 @@ function onUserInteractionEnd() {
 
     interactionTimeout = setTimeout(() => {
         isUserInteracting = false;
+        var latlng = marker.getLatLng();
+        map.flyTo([latlng.lat, latlng.lng], 18, {
+            animate: true,
+            duration: 1 // duration in seconds
+        });
     }, 5000); // Wait 1 second after last interaction before allowing auto-pan
 }
 
@@ -79,8 +84,8 @@ function showPosition(position) {
 
     // Only pan the map if user is not currently interacting
     if (!isUserInteracting) {
-        //map.panTo(new L.LatLng(lat, lon));
-        map.setView(new L.LatLng(lat,lon), 18);
+        map.panTo(new L.LatLng(lat, lon));
+        //map.setView(new L.LatLng(lat,lon), 18);
     }
 }
 
