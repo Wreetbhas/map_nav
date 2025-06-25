@@ -6,7 +6,7 @@ var currentDestination;
 // Creating map options
 var mapOptions = {
     center: [22.04916111, 88.10478889],
-    zoom: 18
+    zoom: 16
 }
 
 // Creating a map object
