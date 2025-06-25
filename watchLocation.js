@@ -62,7 +62,7 @@ function onUserInteractionEnd() {
 
     interactionTimeout = setTimeout(() => {
         isUserInteracting = false;
-    }, 10000); // Wait 1 second after last interaction before allowing auto-pan
+    }, 1000); // Wait 1 second after last interaction before allowing auto-pan
 }
 
 function showPosition(position) {
@@ -79,7 +79,8 @@ function showPosition(position) {
 
     // Only pan the map if user is not currently interacting
     if (!isUserInteracting) {
-        map.panTo(new L.LatLng(lat, lon));
+        //map.panTo(new L.LatLng(lat, lon));
+        map.setView(new L.LatLng(lat,lon), 18);
     }
 }
 
