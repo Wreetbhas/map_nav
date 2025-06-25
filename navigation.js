@@ -46,9 +46,9 @@ function addMarkers() {
 
             marker.bindTooltip(nodename);
 
-            //marker.on('click', function () {
-            //    navigate(nodeid);
-            //});
+            marker.on('click', function () {
+                navigate(nodeid);
+            });
 
             // Adding marker to the map
             marker.addTo(map);
