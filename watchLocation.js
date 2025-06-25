@@ -4,6 +4,7 @@ var circleMarker;
 var firstTime = true;
 var isUserInteracting = false;
 var interactionTimeout;
+var mapEventsOn = false;
 var circleMarkerOptions = {
     color: '#0008ff',
     fillColor: '#0008ff',
@@ -17,11 +18,17 @@ function watchLocation() {
         timeout: 30000
     };
     if (navigator.geolocation) {
+        if (locationTrackLayers) {
+            map.removeLayer(locationTrackLayers);
+        }
         locationTrackLayers = L.layerGroup([]);
         locationTrackLayers.addTo(map);
 
         // Set up interaction listeners
-        setupMapInteractionListeners();
+        if (!mapEventsOn) {
+            setupMapInteractionListeners();
+            mapEventsOn = true;
+        }
 
         watchId = navigator.geolocation.watchPosition(showPosition, showError, options);
     }
