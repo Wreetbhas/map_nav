@@ -2,6 +2,7 @@
 var currentPath;
 var layerGroup;
 var currentDestination;
+var watchLocationTimeout;
 
 // Creating map options
 var mapOptions = {
@@ -46,9 +47,10 @@ function submitPassword(nodeid, event) {
         // Close the popup after successful navigation
         map.closePopup();
 
-        setTimeout(() => {
+        watchLocationTimeout = setTimeout(() => {
             watchLocation();
         }, 2000);
+        isUserInteracting = false;
     } else {
         alert("Wrong password.");
     }
@@ -74,7 +76,9 @@ function addMarkers() {
             marker.bindTooltip(nodename);
 
             marker.on('click', function () {      
-                if (navigator.geolocation && watchId) {
+                if (navigator.geolocation && watchId && interactionTimeout && watchLocationTimeout) {
+                    clearTimeout(interactionTimeout);
+                    clearTimeout(watchLocationTimeout);
                     navigator.geolocation.clearWatch(watchId);
                 }
                 marker.bindPopup(popupContent).openPopup();
@@ -98,6 +102,7 @@ function addMarkers() {
         
     });      
 }
+
 function addEdges() {
     Object.entries(edges).forEach(([edgeid, edge]) => {
         var startnodeid = edge.startnodeid;
