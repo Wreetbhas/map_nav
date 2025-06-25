@@ -62,11 +62,13 @@ function onUserInteractionEnd() {
 
     interactionTimeout = setTimeout(() => {
         isUserInteracting = false;
-        var latlng = marker.getLatLng();
-        map.flyTo([latlng.lat, latlng.lng], 18, {
-            animate: true,
-            duration: 1 // duration in seconds
-        });
+        if (circleMarker) {
+            var latlng = circleMarker.getLatLng();
+            map.flyTo([latlng.lat, latlng.lng], 18, {
+                animate: true,
+                duration: 1 // duration in seconds
+            });
+        }
     }, 5000); // Wait 1 second after last interaction before allowing auto-pan
 }
 
