@@ -62,7 +62,7 @@ function onUserInteractionEnd() {
 
     interactionTimeout = setTimeout(() => {
         isUserInteracting = false;
-    }, 1000); // Wait 1 second after last interaction before allowing auto-pan
+    }, 5000); // Wait 1 second after last interaction before allowing auto-pan
 }
 
 function showPosition(position) {
