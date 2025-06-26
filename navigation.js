@@ -53,12 +53,6 @@ function submitPassword(nodeid, event) {
         isUserInteracting = false;
     } else {
         alert("Wrong password.");
-        if (currentPath) {
-            watchLocationTimeout = setTimeout(() => {
-                watchLocation();
-            }, 2000);
-            isUserInteracting = false;
-        }
     }
     return false; // Prevent any form submission
 }
@@ -81,20 +75,12 @@ function addMarkers() {
 
             marker.bindTooltip(nodename);
 
-            marker.on('dblclick', function () { 
-                if (navigator.geolocation && watchId) {
+            marker.on('click', function () {      
+                if (navigator.geolocation && watchId && interactionTimeout && watchLocationTimeout) {
+                    clearTimeout(interactionTimeout);
+                    clearTimeout(watchLocationTimeout);
                     navigator.geolocation.clearWatch(watchId);
                 }
-                if (interactionTimeout) {
-                    clearTimeout(interactionTimeout);
-                    interactionTimeout = null;
-                }
-                if (watchLocationTimeout) {
-                    clearTimeout(watchLocationTimeout);
-                    watchLocationTimeout = null;
-
-                }
-
                 marker.bindPopup(popupContent).openPopup();
             });
 
